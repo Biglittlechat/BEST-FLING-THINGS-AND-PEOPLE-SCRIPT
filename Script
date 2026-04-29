@@ -536,26 +536,8 @@ local function buildKeyScreen()
     KeyBox:CaptureFocus()
 end
 
--- Check for saved key first
-local savedKey = nil
-pcall(function()
-    if readfile then
-        local ok, content = pcall(readfile, KEY_SAVE_FILE)
-        if ok and content and VALID_KEYS[content:match("^%s*(.-)%s*$")] then
-            savedKey = content:match("^%s*(.-)%s*$")
-        end
-    end
-end)
-
-if savedKey then
-    keyVerified = true
-else
-    buildKeyScreen()
-    -- Wait until key is verified
-    while not keyVerified do
-        task.wait(0.1)
-    end
-end
+-- Key system bypassed
+keyVerified = true
 
 -- ============================================================
 --  KEY VERIFIED — LOAD THE HUB
