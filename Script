@@ -1,7 +1,7 @@
 -- ██████████████████████████████████████████████████████████████████
 -- █                                                                  █
 -- █   SILENCED HUB  -  FOR ROBLOX SCRIPTS & DEV                     █
--- █   Version: 2.0  |  discord.gg/8V77JNe7jr                        █
+-- █   Version: 2.0  |  discord.gg/bdy4ssD3P4                        █
 -- █   Theme: Cyan/Black  |  Key Required                            █
 -- █                                                                  █
 -- ██████████████████████████████████████████████████████████████████
@@ -20,7 +20,7 @@ local StarterGui         = game:GetService("StarterGui")
 
 -- ============================================================
 --  SILENCED HUB  -  KEY SYSTEM
---  Keys are given in the Discord server: discord.gg/8V77JNe7jr
+--  Keys are given in the Discord server: discord.gg/bdy4ssD3P4
 -- ============================================================
 
 local VALID_KEYS = {
@@ -226,7 +226,7 @@ local VALID_KEYS = {
     ["SILENCED-9BEB-5A8O-YF9X"] = true,
 }
 
-local DISCORD_LINK = "discord.gg/8V77JNe7jr"
+local DISCORD_LINK = "discord.gg/bdy4ssD3P4"
 local KEY_SAVE_FILE = "SilencedHub_Key.txt"
 
 -- ============================================================
@@ -284,25 +284,34 @@ local function buildKeyScreen()
     TopBarCorner.CornerRadius = UDim.new(0, 14)
     TopBarCorner.Parent = TopBar
 
-    -- Logo area (top)
+    -- Logo area (top) - with image
+    local LogoImage = Instance.new("ImageLabel")
+    LogoImage.Size = UDim2.new(0, 120, 0, 120)
+    LogoImage.Position = UDim2.new(0.5, -60, 0, 5)
+    LogoImage.BackgroundTransparency = 1
+    LogoImage.Image = "rbxassetid://75799177950528" -- Roblox hosted, fallback to text if not available
+    LogoImage.ScaleType = Enum.ScaleType.Fit
+    LogoImage.Parent = Card
+    pcall(function() LogoImage.Image = "rbxassetid://75799177950528" end)
+
     local LogoLabel = Instance.new("TextLabel")
-    LogoLabel.Size = UDim2.new(1, 0, 0, 90)
-    LogoLabel.Position = UDim2.new(0, 0, 0, 10)
+    LogoLabel.Size = UDim2.new(1, 0, 0, 40)
+    LogoLabel.Position = UDim2.new(0, 0, 0, 120)
     LogoLabel.BackgroundTransparency = 1
-    LogoLabel.Text = "⚙ SILENCED HUB"
+    LogoLabel.Text = "SILENCED HUB"
     LogoLabel.Font = Enum.Font.GothamBold
-    LogoLabel.TextSize = 34
+    LogoLabel.TextSize = 28
     LogoLabel.TextColor3 = Color3.fromRGB(0, 210, 255)
     LogoLabel.Parent = Card
 
     -- Glow effect on logo
     local LogoShadow = Instance.new("TextLabel")
-    LogoShadow.Size = UDim2.new(1, 0, 0, 90)
-    LogoShadow.Position = UDim2.new(0, 2, 0, 12)
+    LogoShadow.Size = UDim2.new(1, 0, 0, 40)
+    LogoShadow.Position = UDim2.new(0, 2, 0, 122)
     LogoShadow.BackgroundTransparency = 1
-    LogoShadow.Text = "⚙ SILENCED HUB"
+    LogoShadow.Text = "SILENCED HUB"
     LogoShadow.Font = Enum.Font.GothamBold
-    LogoShadow.TextSize = 34
+    LogoShadow.TextSize = 28
     LogoShadow.TextColor3 = Color3.fromRGB(0, 100, 140)
     LogoShadow.ZIndex = 0
     LogoShadow.Parent = Card
@@ -411,7 +420,7 @@ local function buildKeyScreen()
     DiscordBtn.Font = Enum.Font.GothamSemibold
     DiscordBtn.TextSize = 13
     DiscordBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    DiscordBtn.Text = "🔗  Join Discord to Get a Key  →  discord.gg/8V77JNe7jr"
+    DiscordBtn.Text = "🔗  Join Discord to Get a Key  →  discord.gg/bdy4ssD3P4"
     DiscordBtn.BorderSizePixel = 0
     DiscordBtn.AutoButtonColor = false
     DiscordBtn.Parent = Card
@@ -507,24 +516,24 @@ local function buildKeyScreen()
         -- Copy invite link to clipboard so user can paste it into browser/Discord
         pcall(function()
             if setclipboard then
-                setclipboard("https://discord.gg/8V77JNe7jr")
+                setclipboard("https://discord.gg/bdy4ssD3P4")
             end
         end)
         -- Also try to open via shell on supported executors (Synapse X, KRNL, etc.)
         pcall(function()
             if syn and syn.request then
-                syn.request({Url = "https://discord.gg/8V77JNe7jr", Method = "GET"})
+                syn.request({Url = "https://discord.gg/bdy4ssD3P4", Method = "GET"})
             end
         end)
         pcall(function()
-            if shell_execute then shell_execute("https://discord.gg/8V77JNe7jr") end
+            if shell_execute then shell_execute("https://discord.gg/bdy4ssD3P4") end
         end)
         -- Visual feedback
         local oldText = DiscordBtn.Text
         DiscordBtn.Text = "✅  Link copied to clipboard!"
         TweenService:Create(DiscordBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(50, 200, 100)}):Play()
         StatusLabel.TextColor3 = Color3.fromRGB(0, 230, 130)
-        StatusLabel.Text = "📋  Paste in browser: discord.gg/8V77JNe7jr"
+        StatusLabel.Text = "📋  Paste in browser: discord.gg/bdy4ssD3P4"
         task.wait(3)
         DiscordBtn.Text = oldText
         TweenService:Create(DiscordBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(88, 101, 242)}):Play()
@@ -543,8 +552,10 @@ keyVerified = true
 --  KEY VERIFIED — LOAD THE HUB
 -- ============================================================
 
--- Disable beam move script
-game.Players.LocalPlayer.PlayerScripts.CharacterAndBeamMove.Enabled = false
+-- Disable beam move script (safe)
+pcall(function()
+    game.Players.LocalPlayer.PlayerScripts.CharacterAndBeamMove.Enabled = false
+end)
 
 -- Load Infinite Yield quietly
 loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
@@ -620,7 +631,7 @@ end
 --  STARTUP MESSAGE
 -- ============================================================
 local function sendHubLoadedMessage()
-    local message = " ⚙ SILENCED HUB loaded — discord.gg/8V77JNe7jr "
+    local message = " ⚙ SILENCED HUB loaded — discord.gg/bdy4ssD3P4 "
     local sent = false
     pcall(function()
         local chatEvents = ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents")
@@ -869,10 +880,10 @@ do
     local AntiGrabEnabled = false
     local HeldConnection  = nil
     local isHeld = plr:WaitForChild("IsHeld", 10)
-    if not isHeld then return end
+    if not isHeld then isHeld = Instance.new("BoolValue") end
     local struggleEvent = ReplicatedStorage:WaitForChild("CharacterEvents", 10)
     if struggleEvent then struggleEvent = struggleEvent:WaitForChild("Struggle", 10) end
-    if not struggleEvent then return end
+    if not struggleEvent then struggleEvent = {FireServer = function() end} end
 
     local function onHeldChanged(heldState)
         local char = plr.Character
@@ -997,7 +1008,7 @@ do
     local AntiGrabEnabled2 = false
     local HeldConnection2  = nil
     local isHeld2 = plr:WaitForChild("IsHeld", 10)
-    if not isHeld2 then return end
+    if not isHeld2 then isHeld2 = Instance.new("BoolValue") end
     local struggleEvent2 = ReplicatedStorage:WaitForChild("CharacterEvents", 10)
     if struggleEvent2 then struggleEvent2 = struggleEvent2:WaitForChild("Struggle", 10) end
     local StruggleEvent2 = struggleEvent2
@@ -1188,6 +1199,7 @@ DefenseGroup:CreateToggle({
             end)
         end
         OAA_antiBlobmanGrabEnabled = enabled
+        task.spawn(function()
         while OAA_antiBlobmanGrabEnabled do
             for _, player in pairs(OAA_players:GetPlayers()) do
                 if player and OAA_getCharacter(player) then
@@ -1210,6 +1222,7 @@ DefenseGroup:CreateToggle({
             end
             task.wait(0.01)
         end
+        end) -- end task.spawn
     end,
 })
 
@@ -1246,11 +1259,14 @@ DefenseGroup:CreateToggle({
 
 local hookBurnConn
 local function hookBurn(char)
+    pcall(function()
     local hum = char:WaitForChild("Humanoid")
     local hrp = char:WaitForChild("HumanoidRootPart")
     char.PrimaryPart = hrp
     if hookBurnConn then hookBurnConn:Disconnect() end
-    hookBurnConn = hum.FireDebounce.Changed:Connect(function(isBurning)
+    local fireDebounce = hum:FindFirstChild("FireDebounce")
+    if not fireDebounce then return end
+    hookBurnConn = fireDebounce.Changed:Connect(function(isBurning)
         if isBurning then
             local me = char
             local oldCF = hrp.CFrame
@@ -1278,6 +1294,7 @@ local function hookBurn(char)
             end
         end
     end)
+    end) -- end pcall wrapper
 end
 
 DefenseGroup:CreateToggle({
@@ -2068,4 +2085,6 @@ FanGroup:CreateToggle({
 --  ALL DONE — FINAL NOTIFY
 -- ============================================================
 task.wait(2)
-notify("SILENCED HUB", "All systems loaded. Use RightShift to toggle UI.", 6)
+pcall(function()
+    notify("SILENCED HUB", "✅ All systems loaded! discord.gg/bdy4ssD3P4 | RightShift to toggle UI.", 6)
+end)
